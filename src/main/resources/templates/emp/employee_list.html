@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <meta charset="UTF-8">
+    <title>菜单</title>
+    <link th:href="@{/css/bootstrap.min.css}" type="text/css" rel="stylesheet" />
+    <link th:href="@{/css/jsh.css}" type="text/css" rel="stylesheet" />
+    <link th:href="@{/css/menu.css}" type="text/css" rel="stylesheet" />
+    <link th:href="@{/css/bootstrap-table.min.css}" type="text/css" rel="stylesheet" />
+    <script th:src="@{/js/jquery.js}" ></script>
+    <script th:src="@{/js/bootstrap.min.js}" ></script>
+    <script th:src="@{/js/bootstrap-table.min.js}" ></script>
+    <script th:src="@{/js/bootstrap-table-en-US.min.js}" ></script>
+    <script th:src="@{/js/bootstrap-table-zh-CN.min.js}" ></script>
+</head>
+<body>
+    <div th:replace="~{common/topbar::topbar}"></div>
+    <div class="container-fluid">
+        <div class="row main">
+            <div th:replace="~{common/menu::menu}"></div>
+            <div class="col-md-9 content">
+                <div class="content-body">
+                    <div id="toolbar">
+                        <a class="btn btn-success" th:href="@{/employee/add}">添加</a>
+                    </div>
+                    <table id="employee-table" class="mt-5 table table-bordered table-hover table-striped"
+                           data-toggle="table" data-pagination="true" data-search="true" data-toolbar="#toolbar"
+                            th:data-url="@{/employee/list}" data-locale="zh_CN">
+                        <thead class="thead-light">
+                            <tr>
+                                <th data-checkbox="true"></th>
+                                <th data-field="employeeName">员工姓名</th>
+                                <th data-field="email">邮箱</th>
+                                <th data-field="sex" data-formatter="sexFun">性别</th>
+                                <th data-field="department" data-formatter="departmentFun">部门</th>
+                                <th data-field="birth" data-formatter="birthFun">生日</th>
+                                <th data-formatter="operationFun">操作</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+
+        function sexFun(value, row, index){
+            if(value == 1)
+                return "男";
+            else if(value == 2)
+                return "女";
+            else
+                return "";
+        }
+
+        function departmentFun(value, row, index){
+            return value ? value.departmentName : "";
+        }
+
+        function birthFun(value, row, index){
+            return getYMDDate(value);
+        }
+
+        function getYMDDate(date){
+            if(date){
+               var dateTime = new Date(date);
+               return dateTime.getFullYear() + "-" + doubleDigit(dateTime.getMonth()+1) + "-" +
+                   doubleDigit(dateTime.getDay());
+            }
+            return "";
+        }
+
+        function doubleDigit(value){
+            return value.length == 1 ? "0" + value : value;
+        }
+
+        function operationFun(value, row, index){
+            var btn = [
+                '<a class="btn btn-sm btn-primary ml-3" href="/employee/editShow?id=' + row.id + '">编辑</a>',
+                '<a class="btn btn-sm btn-danger ml-3" href="/employee/delete?id=' + row.id + '">删除</a>'
+            ];
+            return btn.join('');
+        }
+
+    </script>
+</body>
+</html>

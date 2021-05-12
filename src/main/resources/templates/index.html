@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>登录</title>
+        <link th:href="@{/css/bootstrap.min.css}" type="text/css" rel="stylesheet" />
+        <link th:href="@{/css/jsh.css}" type="text/css" rel="stylesheet" />
+        <script th:src="@{/js/jquery.js}" ></script>
+        <script th:src="@{/js/bootstrap.min.js}" ></script>
+    </head>
+    <body class="text-center">
+        <div class="login-container">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-home mr-3"></span>
+                    <span th:text="#{login.tip}">Please sign in</span>
+                </div>
+                <label class="panel-body">
+                    <form th:action="@{/login/in}" method="post">
+                        <input type="text" class="form-control mb-3" name="username" th:placeholder="#{login.username}">
+                        <input type="password" class="form-control mb-3" name="password" th:placeholder="#{login.password}">
+                        <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+                        <div class="mb-3">
+                            <label>
+                                <input type="checkbox" > [[#{login.remember}]]
+                            </label>
+                        </div>
+                        <button class="btn btn-primary btn-block" type="submit">[[#{login.submit}]]</button>
+                        <p class="mt-5 mb-3 text-muted">@ 2020-2021</p>
+                        <a class="btn btn-sm" th:href="@{/index.html(l='zh_CN')}">中文</a> |
+                        <a class="btn btn-sm" th:href="@{/index.html(l='en_US')}">English</a>
+                    </form>
+                </label>
+            </div>
+        </div>
+    </body>
+</html>

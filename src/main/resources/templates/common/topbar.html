@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <div class="topbar" th:fragment="topbar">
+        <div class="logo col-sm-2">JSH</div>
+        <div class="col-sm-8">
+        </div>
+        <div class="col-sm-2 topbar-end">
+            <label>欢迎您，<span th:text="${session.loginUser}"></span></label>
+            <a title="退出登录" class="out-btn glyphicon glyphicon-off" th:href="@{/login/out}"></a>
+        </div>
+    </div>
+</html>

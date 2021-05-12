@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>部门</title>
+    <link th:href="@{/css/bootstrap.min.css}" type="text/css" rel="stylesheet" />
+    <link th:href="@{/css/jsh.css}" type="text/css" rel="stylesheet" />
+    <link th:href="@{/css/menu.css}" type="text/css" rel="stylesheet" />
+    <link th:href="@{/css/bootstrap-table.min.css}" type="text/css" rel="stylesheet" />
+    <script th:src="@{/js/jquery.js}" ></script>
+    <script th:src="@{/js/bootstrap.min.js}" ></script>
+    <script th:src="@{/js/bootstrap-table.min.js}" ></script>
+    <script th:src="@{/js/bootstrap-table-en-US.min.js}" ></script>
+    <script th:src="@{/js/bootstrap-table-zh-CN.min.js}" ></script>
+</head>
+<body>
+    <div th:replace="~{common/topbar::topbar}"></div>
+    <div class="container-fluid">
+        <div class="row main">
+            <div th:replace="~{common/menu::menu}"></div>
+            <div class="col-md-9 content">
+                <div class="content-body">
+                    <table id="department-table" class="mt-5 table table-bordered table-hover table-striped"
+                           data-toggle="table" data-pagination="true" data-search="true"
+                           th:data-url="@{/department/list}" data-locale="zh_CN">
+                        <thead class="thead-light">
+                            <tr>
+                                <th data-checkbox="true"></th>
+                                <th data-field="id">部门编号</th>
+                                <th data-field="departmentName">部门名称</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

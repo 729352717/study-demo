@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>菜单</title>
+    <link th:href="@{/css/bootstrap.min.css}" type="text/css" rel="stylesheet" />
+    <link th:href="@{/css/jsh.css}" type="text/css" rel="stylesheet" />
+    <link th:href="@{/css/menu.css}" type="text/css" rel="stylesheet" />
+    <script th:src="@{/js/jquery.js}" ></script>
+    <script th:src="@{/js/bootstrap.min.js}" ></script>
+</head>
+<body>
+    <div class="logo">
+        JSH
+    </div>
+    <div class="container-fluid">
+        <div class="row main">
+            <div class="col-md-3 nav">
+                <ul class="ml-10">
+                    <li><a th:href="@{/employee/page}">员工信息</a></li>
+                    <li><a th:href="@{/department/page}">部门信息</a></li>
+                </ul>
+            </div>
+            <div class="col-md-9 content">
+                <div class="content-body">
+                    <form th:action="@{/employee/save}" method="post" class="form-horizontal">
+                        <div class="form-group" >
+                            <label class="control-label col-sm-2">员工姓名</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="employeeName" placeholder="请输入"
+                                       th:value="${employee} == null ? '' : ${employee.employeeName}">
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                            <label class="control-label col-sm-2">性别</label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" name="sex" value="1" th:checked="${employee} == null ? '' :
+                                        (${employee.sex} == 1 ? 'checked' : '')"> 男
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="sex" value="2" th:checked="${employee} == null ? '' :
+                                        (${employee.sex} == 2 ? 'checked' : '')"> 女
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                            <label class="control-label col-sm-2">邮件</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" name="email" placeholder="请输入"
+                                       th:value="${employee} == null ? '' : ${employee.email}">
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                            <label class="control-label col-sm-2">生日</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" name="birth"
+                                       th:value="${employee} == null ? '' : ${#dates.format(employee.birth, 'yyy-MM-dd')}">
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                            <label class="control-label col-sm-2">部门</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" name="departmentId">
+                                    <option value="">请选择</option>
+                                    <option th:each="item : ${departments}" th:value="${item.id}"
+                                            th:text="${item.getDepartmentName()}"
+                                            th:selected="(${employee} == null or ${employee.department} == null) ? '' :
+                                            (${employee.department.id} == ${item.id} ? 'selected' : '')"></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" >
+                            <label class="control-label col-sm-2"></label>
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">提交</button>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="id" th:value="${employee} == null ? '' : ${employee.id}">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

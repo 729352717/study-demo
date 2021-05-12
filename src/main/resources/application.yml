@@ -1,0 +1,13 @@
+spring:
+  thymeleaf:
+    cache: false  # 关闭模板引擎缓存
+  messages:
+    basename: i18n.login  # 国际化配置文件位置
+  mvc:
+    format:
+      date: dd-MM-yyyy # 时间日期格式化
+
+# 配置请求根路径
+#server:
+#  servlet:
+#    context-path: /jsh
